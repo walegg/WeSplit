@@ -26,13 +26,21 @@ struct ContentView: View {
         return amountPerPerson
     }
     
-    var totalPriceTipIncluded: Double {
+    var grandTotal: Double {
         let tipSelection = Double(tipPercentage)
         
         let tipValue = checkAmount / 100 * tipSelection
-        let totalPriceTipIncluded = checkAmount + tipValue
+        let grandTotal = checkAmount + tipValue
         
-        return totalPriceTipIncluded
+        return grandTotal
+    }
+    
+    var tipValue: Double {
+        let tipSelection = Double(tipPercentage)
+        
+        let tipValue = checkAmount / 100 * tipSelection
+        
+        return tipValue
     }
     
     var body: some View {
@@ -40,16 +48,23 @@ struct ContentView: View {
             Form {
                 Section {
                     TextField("Amount", value: $checkAmount, format:
-                    .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                            .currency(code: Locale.current.currency?.identifier ?? "USD"))
                     .keyboardType(.decimalPad)
                     .focused($amountIsFocused)
-                    
+                } header: {
+                    Text("Enter the check's size")
+                }
+                
+                Section {
                     Picker("Number of people", selection: $numberOfPeople) {
                         ForEach(0..<100) {
                             Text("\($0) people")
                         }
                     }
+                } header: {
+                    Text("Enter the amount of people")
                 }
+                
                 Section {
                     Picker("Tip percentage", selection: $tipPercentage) {
                         ForEach(tipPercentages, id: \.self) {
@@ -63,18 +78,29 @@ struct ContentView: View {
                 }
                 
                 Section {
+                    Text(tipValue, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                } header: {
+                    Text("Tip amount")
+                }
+                
+                Section {
                     Text(totalPerPerson, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
                 } header : {
                     Text("Amount per person")
                 }
                 
                 Section {
-                    Text(totalPriceTipIncluded, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    if tipValue == 0 {
+                        Text(grandTotal, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                            .foregroundColor(.red)
+                    } else {
+                        Text(grandTotal, format: .currency(code: Locale.current.currency?.identifier ?? "USD"))
+                    }
                 } header : {
                     Text("Total amount for the check")
                 }
             }
-            .navigationTitle("WeSplit")
+            .navigationTitle("WeSplit 💸")
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     
