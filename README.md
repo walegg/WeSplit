@@ -1,6 +1,6 @@
 # WeSplit
 
-Hacking with SwiftUI 100 days challenge
+[Hacking with SwiftUI: 100 days challenge](https://www.hackingwithswift.com/100/swiftui)
 
 Project 1:
 WeSplit: App to split the bill
