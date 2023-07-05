@@ -13,3 +13,6 @@ WeSplit: App to split the bill
 - Select a tip amount
 - Get the price per person (tip included)
 - Get the total price for the check (tip included)
+
+  ![wesplit](https://github.com/walegg/WeSplit/assets/108485713/a69b4c39-ed22-4dfe-bd5e-9559f5fef1ea)
+
